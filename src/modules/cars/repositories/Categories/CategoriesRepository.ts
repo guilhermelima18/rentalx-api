@@ -1,24 +1,34 @@
 import { Category } from "../../model/Category";
+import { ICategoriesRepository } from "./ICategoriesRepository";
 
 interface ICreateCategoryDTO {
   name: string;
   description: string;
 }
 
-class CategoriesRepository {
+class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
 
-  constructor() {
+  private static INSTANCE: CategoriesRepository;
+
+  private constructor() {
     this.categories = [];
+  }
+
+  public static getInstance(): CategoriesRepository {
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+
+    return CategoriesRepository.INSTANCE;
   }
 
   list(): Category[] {
     return this.categories;
   }
 
-  listById(id: string) {
-    const category = this.categories.filter((category) => category.id === id);
-    return category;
+  listById(id: string): Category {
+    return this.categories.find((category) => category.id === id);
   }
 
   create({ name, description }: ICreateCategoryDTO): void {
