@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { createSpecificationController } from "../modules/cars/useCases/Specifications/createSpecification";
+import { listSpecificationByIdController } from "../modules/cars/useCases/Specifications/listSpecificationById";
 import { listSpecificationsController } from "../modules/cars/useCases/Specifications/listSpecifications";
 
 const specificationRoutes = Router();
@@ -11,16 +12,17 @@ specificationRoutes.get(
   }
 );
 
-/* specificationRoutes.get(
+specificationRoutes.get(
   "/specifications/:id",
-  (req: Request, res: Response) => {
-    const { id } = req.params;
+  (request: Request, response: Response) => {
+    const specification = listSpecificationByIdController.handle(
+      request,
+      response
+    );
 
-    const specification = specificationRepository.listById(id);
-
-    return res.status(200).json(specification);
+    return response.status(200).json(specification);
   }
-); */
+);
 
 specificationRoutes.post(
   "/specifications",
