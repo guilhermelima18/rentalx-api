@@ -8,6 +8,7 @@ const specificationRoutes = Router();
 specificationRoutes.get(
   "/specifications",
   (request: Request, response: Response) => {
+    console.log("Reload");
     return listSpecificationsController.handle(request, response);
   }
 );
