@@ -1,10 +1,3 @@
-import { DataSource } from "typeorm";
+import { createConnection } from "typeorm";
 
-export const AppDataSource = new DataSource({
-  type: "postgres",
-  port: 5432,
-  host: "localhost",
-  username: "docker",
-  password: "ignite",
-  database: "rentx",
-});
+createConnection();
