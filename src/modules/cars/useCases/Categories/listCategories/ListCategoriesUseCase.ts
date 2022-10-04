@@ -3,8 +3,9 @@ import { CategoriesRepository } from "../../../repositories/Categories/Categorie
 class ListCategoriesUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
-  execute() {
-    return this.categoriesRepository.list();
+  async execute() {
+    const categories = await this.categoriesRepository.list();
+    return categories;
   }
 }
 

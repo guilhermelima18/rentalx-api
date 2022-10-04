@@ -3,8 +3,10 @@ import { CategoriesRepository } from "../../../repositories/Categories/Categorie
 class ListCategoryByIdUseCase {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
-  execute(id: string) {
-    return this.categoriesRepository.listById(id);
+  async execute(id: string) {
+    const category = await this.categoriesRepository.listById(id);
+
+    return category;
   }
 }
 

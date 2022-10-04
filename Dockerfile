@@ -1,8 +1,8 @@
-FROM node
+FROM node:14-buster
 
-WORKDIR /usr/app
-
+WORKDIR /app
 COPY package.json ./
+COPY src ./src
 
 RUN npm install
 
