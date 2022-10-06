@@ -1,35 +1,24 @@
-import { Request, Response, Router } from "express";
-import { createSpecificationController } from "../modules/cars/useCases/Specifications/createSpecification";
-import { listSpecificationByIdController } from "../modules/cars/useCases/Specifications/listSpecificationById";
-import { listSpecificationsController } from "../modules/cars/useCases/Specifications/listSpecifications";
+import { Router } from "express";
+import { CreateSpecificationController } from "../modules/cars/useCases/Specifications/createSpecification/createSpecificationController";
+import { ListSpecificationByIdController } from "../modules/cars/useCases/Specifications/listSpecificationById/listSpecificationByIdController";
+import { ListSpecificationsController } from "../modules/cars/useCases/Specifications/listSpecifications/listSpecificationsController";
+
+const listSpecificationsController = new ListSpecificationsController();
+const specificationByIdController = new ListSpecificationByIdController();
+const createSpecificationController = new CreateSpecificationController();
 
 const specificationRoutes = Router();
 
-specificationRoutes.get(
-  "/specifications",
-  (request: Request, response: Response) => {
-    console.log("Reload");
-    return listSpecificationsController.handle(request, response);
-  }
-);
+specificationRoutes.get("/specifications", listSpecificationsController.handle);
 
 specificationRoutes.get(
   "/specifications/:id",
-  (request: Request, response: Response) => {
-    const specification = listSpecificationByIdController.handle(
-      request,
-      response
-    );
-
-    return response.status(200).json(specification);
-  }
+  specificationByIdController.handle
 );
 
 specificationRoutes.post(
   "/specifications",
-  (request: Request, response: Response) => {
-    return createSpecificationController.handle(request, response);
-  }
+  createSpecificationController.handle
 );
 
 export { specificationRoutes };

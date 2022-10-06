@@ -1,37 +1,32 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 import multer from "multer";
 
 import { CreateCategoryController } from "../modules/cars/useCases/Categories/createCategory/CreateCategoryController";
+import { ImportCategoryController } from "../modules/cars/useCases/Categories/importCategory/ImportCategoryController";
+import { ListCategoriesController } from "../modules/cars/useCases/Categories/listCategories/ListCategoriesController";
+import { ListCategoryByIdController } from "../modules/cars/useCases/Categories/listCategoryById/ListCategoryByIdController";
 
-import importCategoryController from "../modules/cars/useCases/Categories/importCategory";
-import listCategoriesController from "../modules/cars/useCases/Categories/listCategories";
-import listCategoryByIdController from "../modules/cars/useCases/Categories/listCategoryById";
-
+const listCategoriesController = new ListCategoriesController();
+const listCategoryByIdController = new ListCategoryByIdController();
 const createCategoryController = new CreateCategoryController();
+const importCategoryUseCase = new ImportCategoryController();
+
 const categoriesRoutes = Router();
+
 const upload = multer({
   dest: "./tmp",
 });
 
-categoriesRoutes.get("/categories", (request: Request, response: Response) => {
-  return listCategoriesController().handle(request, response);
-});
+categoriesRoutes.get("/categories", listCategoriesController.handle);
 
-categoriesRoutes.get(
-  "/categories/:id",
-  (request: Request, response: Response) => {
-    return listCategoryByIdController().handle(request, response);
-  }
-);
+categoriesRoutes.get("/categories/:id", listCategoryByIdController.handle);
 
 categoriesRoutes.post("/categories", createCategoryController.handle);
 
 categoriesRoutes.post(
   "/categories/import",
   upload.single("file"),
-  (request: Request, response: Response) => {
-    return importCategoryController().handle(request, response);
-  }
+  importCategoryUseCase.handle
 );
 
 export { categoriesRoutes };
