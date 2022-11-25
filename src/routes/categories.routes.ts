@@ -9,7 +9,7 @@ import { ListCategoryByIdController } from "../modules/cars/useCases/Categories/
 const listCategoriesController = new ListCategoriesController();
 const listCategoryByIdController = new ListCategoryByIdController();
 const createCategoryController = new CreateCategoryController();
-const importCategoryUseCase = new ImportCategoryController();
+const importCategoryController = new ImportCategoryController();
 
 const categoriesRoutes = Router();
 
@@ -26,7 +26,7 @@ categoriesRoutes.post("/categories", createCategoryController.handle);
 categoriesRoutes.post(
   "/categories/import",
   upload.single("file"),
-  importCategoryUseCase.handle
+  importCategoryController.handle
 );
 
 export { categoriesRoutes };
