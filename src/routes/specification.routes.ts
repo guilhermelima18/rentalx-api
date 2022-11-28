@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { ensureAuthenticate } from "../middlewares/ensureAuthenticate";
 import { CreateSpecificationController } from "../modules/cars/useCases/Specifications/createSpecification/createSpecificationController";
 import { ListSpecificationByIdController } from "../modules/cars/useCases/Specifications/listSpecificationById/listSpecificationByIdController";
 import { ListSpecificationsController } from "../modules/cars/useCases/Specifications/listSpecifications/listSpecificationsController";
@@ -16,6 +17,7 @@ specificationRoutes.get(
   specificationByIdController.handle
 );
 
+specificationRoutes.use(ensureAuthenticate);
 specificationRoutes.post(
   "/specifications",
   createSpecificationController.handle
