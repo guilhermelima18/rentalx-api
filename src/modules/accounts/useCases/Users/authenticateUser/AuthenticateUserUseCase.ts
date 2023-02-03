@@ -24,7 +24,7 @@ class AuthenticateUserUseCase {
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    // Vefica se o e-mail do usuário existe
+    // Verifica se o e-mail do usuário existe
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {

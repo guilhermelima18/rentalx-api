@@ -2,9 +2,9 @@
   "type": "postgres",
   "port": 5432,
   "host": "localhost",
-  "username": "docker",
-  "password": "ignite",
-  "database": "rentx",
+  "username": "rentalx",
+  "password": "rentalx",
+  "database": "rentalx",
   "migrations": ["./src/database/migrations/*.ts"],
   "entities": [
     "./src/modules/cars/entities/**/*{.ts,.js}",
